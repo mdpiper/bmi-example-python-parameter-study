@@ -1,5 +1,5 @@
 from ._version import __version__
-from .run import BmiHeatParameterStudy
+from .study import BmiHeatParameterStudy
 
 __all__ = [
     "__version__",
