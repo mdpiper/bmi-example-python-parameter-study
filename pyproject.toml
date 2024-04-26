@@ -1,0 +1,68 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bmi-heat-study"
+description = "Parameter study of the BmiHeat model."
+readme = "README.md"
+authors = [
+  {email = "mark.piper@colorado.edu"},
+  {name = "Mark Piper"}
+]
+keywords = [
+  "bmi",
+  "csdms",
+  "parameter study",
+]
+license = {file = "LICENSE"}
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3",
+  "Topic :: Scientific/Engineering :: Physics",
+]
+requires-python = ">=3.10"
+dependencies = [
+  "bmi-heat@git+https://github.com/csdms/bmi-example-python",
+  "numpy",
+]
+dynamic = ["version"]
+
+[project.urls]
+homepage = "https://csdms.colorado.edu"
+documentation = "https://bmi.readthedocs.io"
+repository = "https://github.com/mdpiper/bmi-example-python-parameter-study"
+
+[tool.setuptools.dynamic]
+version = {attr = "bmiheatps._version.__version__"}
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+testpaths = ["src/bmiheatps", "tests"]
+norecursedirs = [".*", "*.egg*", "build", "dist", "examples"]
+addopts = """
+  --ignore setup.py
+  --tb native
+  --strict-markers
+  --durations 16
+  --doctest-modules
+  -vvv
+"""
+doctest_optionflags = [
+  "NORMALIZE_WHITESPACE",
+  "IGNORE_EXCEPTION_DETAIL",
+  "ALLOW_UNICODE"
+]
+
+[tool.isort]
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+combine_as_imports = true
+line_length = 88
