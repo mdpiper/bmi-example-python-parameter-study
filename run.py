@@ -1,31 +1,54 @@
+"""A parameter study of the BmiHeat model."""
+
 import numpy as np
 from heat import BmiHeat
 
 CONFIG_FILE = "heat.yaml"
-END_TIME = 2.0
 
 
-m = BmiHeat()
-m.initialize(CONFIG_FILE)
+class BmiHeatParameterStudy(object):
 
-grid_id = m.get_var_grid("plate_surface__temperature")
-rank = m.get_grid_rank(grid_id)
-shape = np.ndarray(rank, dtype=int)
-m.get_grid_shape(grid_id, shape)
+    RUN_DURATION = 2.0
+    VAR_NAME = "plate_surface__temperature"
+    MAX_VALUE = 100.
 
-temperature = np.zeros(shape)
-temperature[shape[0] // 2, shape[1] // 2] = 100.0
-m.set_value("plate_surface__temperature", temperature)
+    def __init__(self, config_file: str) -> None:
+        self._bmi = BmiHeat()
+        self._bmi.initialize(config_file)
 
-while m.get_current_time() < END_TIME:
-    m.update()
+        grid_id = self._bmi.get_var_grid(self.VAR_NAME)
+        rank = self._bmi.get_grid_rank(grid_id)
+        self._shape = np.ndarray(rank, dtype=int)
+        self._bmi.get_grid_shape(grid_id, self._shape)
 
-final_temperature = np.empty_like(temperature).flatten()
-m.get_value("plate_surface__temperature", final_temperature)
+        self._temperature = np.zeros(self._shape).flatten()
+        self.set_initial_values()
 
-with np.printoptions(formatter={"float": "{: 5.1f}".format}):
-    print(final_temperature.reshape(shape))
+    def set_initial_values(self) -> None:
+        max_value_index = self._shape[1] // 2 * (self._shape[0] + 1)
+        self._temperature[max_value_index] = self.MAX_VALUE
+        self._bmi.set_value(self.VAR_NAME, self._temperature)
 
-print(final_temperature.sum())
+    def run(self) -> None:
+        while self._bmi.get_current_time() < self.RUN_DURATION:
+            self._bmi.update()
 
-m.finalize()
+    def output(self) -> None:
+        self._bmi.get_value(self.VAR_NAME, self._temperature)
+        print(self._temperature.sum())
+
+    def show(self):
+        self._bmi.get_value(self.VAR_NAME, self._temperature)
+        with np.printoptions(formatter={"float": "{: 5.1f}".format}):
+            print(self._temperature.reshape(self._shape))
+
+
+def main() -> None:
+    m = BmiHeatParameterStudy(CONFIG_FILE)
+    m.run()
+    m.show()
+    m.output()
+
+
+if __name__ == "__main__":
+    main()
