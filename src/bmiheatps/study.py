@@ -42,15 +42,3 @@ class BmiHeatParameterStudy(object):
         self._bmi.get_value(self.VAR_NAME, self._temperature)
         with np.printoptions(formatter={"float": "{: 5.1f}".format}):
             print(self._temperature.reshape(self._shape))
-
-
-def main() -> None:
-    m = BmiHeatParameterStudy(CONFIG_FILE, show=False)
-    m.run()
-    if m._show:
-        m.show()
-    m.output()
-
-
-if __name__ == "__main__":
-    main()

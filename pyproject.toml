@@ -30,9 +30,13 @@ classifiers = [
 requires-python = ">=3.10"
 dependencies = [
   "bmi-heat@git+https://github.com/csdms/bmi-example-python",
+  "click",
   "numpy",
 ]
 dynamic = ["version"]
+
+[project.scripts]
+bmi-heat-study = "bmiheatps.cli:main"
 
 [project.urls]
 homepage = "https://csdms.colorado.edu"
