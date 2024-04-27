@@ -12,7 +12,8 @@ class BmiHeatParameterStudy(object):
     VAR_NAME = "plate_surface__temperature"
     MAX_VALUE = 100.
 
-    def __init__(self, config_file: str) -> None:
+    def __init__(self, config_file: str, show: bool=False) -> None:
+        self._show = show
         self._bmi = BmiHeat()
         self._bmi.initialize(config_file)
 
@@ -44,9 +45,10 @@ class BmiHeatParameterStudy(object):
 
 
 def main() -> None:
-    m = BmiHeatParameterStudy(CONFIG_FILE)
+    m = BmiHeatParameterStudy(CONFIG_FILE, show=False)
     m.run()
-    m.show()
+    if m._show:
+        m.show()
     m.output()
 
 
