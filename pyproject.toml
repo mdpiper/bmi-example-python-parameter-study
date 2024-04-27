@@ -36,6 +36,12 @@ dependencies = [
 ]
 dynamic = ["version"]
 
+[project.optional-dependencies]
+test = [
+  "pytest",
+  "pytest-datadir",
+]
+
 [project.scripts]
 bmi-heat-study = "bmiheatps.cli:main"
 
