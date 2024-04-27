@@ -11,7 +11,7 @@ def test_read_study_config_file(shared_datadir):
     assert config["run_duration"] == 2.0
     assert config["max_value"] == 100.0
     assert config["alpha_start"] == 0.5
-    assert config["step_size"] == 0.5
+    assert config["alpha_stop"] == 5.0
     assert config["n_steps"] == 10
 
 
