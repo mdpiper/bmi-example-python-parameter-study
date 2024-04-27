@@ -32,6 +32,7 @@ dependencies = [
   "bmi-heat@git+https://github.com/csdms/bmi-example-python",
   "click",
   "numpy",
+  "yaml",
 ]
 dynamic = ["version"]
 
