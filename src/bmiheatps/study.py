@@ -3,8 +3,6 @@
 import numpy as np
 from heat import BmiHeat
 
-CONFIG_FILE = "heat.yaml"
-
 
 class BmiHeatParameterStudy(object):
 
