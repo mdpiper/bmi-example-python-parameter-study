@@ -5,7 +5,7 @@ import yaml
 
 def read_config_file(config_file: str) -> dict: 
     with open(config_file, "r") as fp:
-        config = yaml.safe_load(fp).get("bmiheat-parameter-study", {})
+        config = yaml.safe_load(fp)
     return config
 
 
