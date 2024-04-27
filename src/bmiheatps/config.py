@@ -9,5 +9,10 @@ def read_config_file(config_file: str) -> dict:
     return config
 
 
+def write_config_file(config: dict, config_file: str) -> None:
+    with open(config_file, "w") as fp:
+        yaml.safe_dump(data=config, stream=fp)
+
+
 class BmiHeatStudyConfig(object):
     pass

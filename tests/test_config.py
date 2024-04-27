@@ -1,8 +1,6 @@
 """Test the config module."""
 
-import yaml
-
-from bmiheatps.config import read_config_file
+from bmiheatps.config import read_config_file, write_config_file
 
 STUDY_CONFIG_FILE = "study-config.yaml"
 HEAT_CONFIG_FILE = "heat-config.yaml"
@@ -23,3 +21,11 @@ def test_read_heat_config_file(shared_datadir):
     assert config["spacing"] == [1.0, 1.0]
     assert config["origin"] == [0.0, 0.0]
     assert config["alpha"] == 5.0
+
+
+def test_write_heat_config_file(tmpdir, shared_datadir):
+    config = {"alpha": 1.0}
+    with tmpdir.as_cwd():
+        write_config_file(config, "new-config.yaml")
+        new = read_config_file("new-config.yaml")
+    assert new["alpha"] == 1.0
