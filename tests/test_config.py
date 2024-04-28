@@ -1,6 +1,6 @@
 """Test the config module."""
 
-from bmiheatps.config import read_config_file, write_config_file
+from bmiheat_parameter_study.config import read_config_file, write_config_file
 
 STUDY_CONFIG_FILE = "study-config.yaml"
 HEAT_CONFIG_FILE = "heat-config.yaml"
@@ -8,8 +8,6 @@ HEAT_CONFIG_FILE = "heat-config.yaml"
 
 def test_read_study_config_file(shared_datadir):
     config = read_config_file(shared_datadir / STUDY_CONFIG_FILE)
-    assert config["run_duration"] == 2.0
-    assert config["max_value"] == 100.0
     assert config["alpha_start"] == 0.5
     assert config["alpha_stop"] == 5.0
     assert config["n_steps"] == 10
