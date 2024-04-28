@@ -1,4 +1,1 @@
-# BmiHeat parameter study configuration settings
-alpha_start: 0.5
-alpha_stop: 5.0
-n_steps: 10
+../../study/study-config.yaml
