@@ -5,6 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "bmiheat-parameter-study"
 description = "Parameter study of the BmiHeat model."
+version = "0.1.0.dev0"
 readme = "README.md"
 authors = [
   {email = "mark.piper@colorado.edu"},
@@ -34,7 +35,6 @@ dependencies = [
   "numpy",
   "pyyaml",
 ]
-dynamic = ["version"]
 
 [project.optional-dependencies]
 test = [
@@ -49,9 +49,6 @@ bmiheat-parameter-study = "bmiheat_parameter_study.cli:main"
 homepage = "https://csdms.colorado.edu"
 documentation = "https://bmi.readthedocs.io"
 repository = "https://github.com/mdpiper/bmi-example-python-parameter-study"
-
-[tool.setuptools.dynamic]
-version = {attr = "bmiheat_parameter_study._version.__version__"}
 
 [tool.pytest.ini_options]
 minversion = "6.0"
