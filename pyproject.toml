@@ -43,7 +43,7 @@ test = [
 ]
 
 [project.scripts]
-bmiheat-parameter-study = "bmiheatps.cli:main"
+bmiheat-parameter-study = "bmiheat_parameter_study.cli:main"
 
 [project.urls]
 homepage = "https://csdms.colorado.edu"
@@ -51,11 +51,11 @@ documentation = "https://bmi.readthedocs.io"
 repository = "https://github.com/mdpiper/bmi-example-python-parameter-study"
 
 [tool.setuptools.dynamic]
-version = {attr = "bmiheatps._version.__version__"}
+version = {attr = "bmiheat_parameter_study._version.__version__"}
 
 [tool.pytest.ini_options]
 minversion = "6.0"
-testpaths = ["src/bmiheatps", "tests"]
+testpaths = ["src/bmiheat_parameter_study", "tests"]
 norecursedirs = [".*", "*.egg*", "build", "dist", "examples"]
 addopts = """
   --ignore setup.py
