@@ -11,16 +11,12 @@ request_disk = 8 GB
 # Specify the apptainer container that the executable declared below should be run on in OSG.
 # By default searches for apptainer image in /ospool/protected/${OSG_USERNAME}
 # depends on: `make deploy`
-# NOTE: see https://portal.osg-htc.org/documentation/htc_workloads/managing_data/osdf/ for more details on OSDF and containers
-# update versioning if the image container changes to deal with caching
-# replace <username> with your OSG username
-# 
-+SingularityImage = "osdf:///ospool/PROTECTED/<username>/bmi-heat-v1.sif"
++SingularityImage = "osdf:///ospool/PROTECTED/allen.lee/bmi-heat-v2.sif"
 
 # Executable shell script wrapper that prints out basic system info and runs the specified entrypoint script
 # pass in the full path or relative path entrypoint as an argument (relative to the pwd of the apptainer
 # container)
-Executable = run-osg.sh
+Executable = run.sh
 Arguments = $(Item)
 
 # for debugging purposes
@@ -30,9 +26,9 @@ Arguments = $(Item)
 # Inputs/outputs - all model code is in the container at /code but the particular script we want to run
 # will be transferred to /srv/
 # If you leave out transfer_output_files, all generated files comes back
-transfer_input_files = inputs/
-transfer_output_files =
-#transfer_output_remaps = "${OUTPUT_FILES} = outputs/${OUTPUT_FILES}"
+transfer_input_files = inputs/bmiheat_parameter_study
+transfer_output_files = results
+transfer_output_remaps = "results = outputs/"
 
 # error and output are the error and output channels from your job
 # that HTCondor returns from the remote host.

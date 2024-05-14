@@ -16,13 +16,13 @@ This container bundles the software and system dependencies and computational mo
 Python Parameter Study
 
 %files
-	. /srv/code
+	. /code
 
 %post
-    chmod -R a+rX /srv/code
-    ln -s /srv/results /srv/code/
-    pip install -e /srv/code
-    cd /srv/code
+    chmod -R a+rX /code
+    ln -s /srv/results /code/
+    pip install -e /code
+    cd /code
     bmiheat-parameter-study setup study/study-config.yaml
 
 %runscript
