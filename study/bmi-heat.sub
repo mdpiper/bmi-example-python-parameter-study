@@ -1,0 +1,57 @@
+# CoMSES Open Science Grid submit template
+# vanilla universe is default, container universe has issues on ASU+OSG access point
+universe = vanilla
+
+# Job requirements - make sure we're running on a Singularity enabled node with enough resources to execute our code
+Requirements = HAS_SINGULARITY && HAS_CVMFS_singularity_opensciencegrid_org && OSG_HOST_KERNEL_VERSION >= 31000
+request_cpus = 1
+request_memory = 4 GB
+request_disk = 8 GB
+
+# Specify the apptainer container that the executable declared below should be run on in OSG.
+# By default searches for apptainer image in /ospool/protected/${OSG_USERNAME}
+# depends on: `make deploy`
+# NOTE: see https://portal.osg-htc.org/documentation/htc_workloads/managing_data/osdf/ for more details on OSDF and containers
+# update versioning if the image container changes to deal with caching
+# replace <username> with your OSG username
+# 
++SingularityImage = "osdf:///ospool/PROTECTED/<username>/bmi-heat-v1.sif"
+
+# Executable shell script wrapper that prints out basic system info and runs the specified entrypoint script
+# pass in the full path or relative path entrypoint as an argument (relative to the pwd of the apptainer
+# container)
+Executable = run-osg.sh
+Arguments = $(Item)
+
+# for debugging purposes
+# stream_output = True
+# stream_error = True
+
+# Inputs/outputs - all model code is in the container at /code but the particular script we want to run
+# will be transferred to /srv/
+# If you leave out transfer_output_files, all generated files comes back
+transfer_input_files = inputs/
+transfer_output_files =
+#transfer_output_remaps = "${OUTPUT_FILES} = outputs/${OUTPUT_FILES}"
+
+# error and output are the error and output channels from your job
+# that HTCondor returns from the remote host.
+error = logs/$(Cluster).$(ProcId).error
+output = logs/$(Cluster).$(ProcId).output
+
+# The LOG file is where HTCondor places information about your
+# job's status, success, and resource consumption.
+log = logs/$(Cluster).$(ProcId).log
+
+# Send the job to Held state on failure. 
+#on_exit_hold = (ExitBySignal == True) || (ExitCode != 0)
+
+# Periodically retry the jobs every 1 hour, up to a maximum of 5 retries.
+#periodic_release =  (NumJobStarts < 5) && ((CurrentTime - EnteredCurrentStatus) > 60*60)
+
+# queue is the "start button" - it launches any jobs that have been
+# specified thus far.
+# FIXME: customize when scaling your workload
+# See https://chtc.cs.wisc.edu/uw-research-computing/multiple-jobs
+# for more info
+queue from seq 1 10 |

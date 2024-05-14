@@ -19,7 +19,7 @@ Python Parameter Study
 	. /srv/code
 
 %post
-	chmod -R a+rX /srv/code
+    chmod -R a+rX /srv/code
     ln -s /srv/results /srv/code/
     pip install -e /srv/code
     cd /srv/code
