@@ -3,7 +3,7 @@
 universe = vanilla
 
 # Job requirements - make sure we're running on a Singularity enabled node with enough resources to execute our code
-Requirements = HAS_SINGULARITY && HAS_CVMFS_singularity_opensciencegrid_org && OSG_HOST_KERNEL_VERSION >= 31000
+Requirements = HAS_SINGULARITY && HAS_CVMFS_singularity_opensciencegrid_org
 request_cpus = 1
 request_memory = 4 GB
 request_disk = 8 GB
@@ -26,7 +26,7 @@ Arguments = $(Item)
 # Inputs/outputs - all model code is in the container at /code but the particular script we want to run
 # will be transferred to /srv/
 # If you leave out transfer_output_files, all generated files comes back
-transfer_input_files = inputs/bmiheat_parameter_study
+transfer_input_files =
 transfer_output_files = results
 transfer_output_remaps = "results = outputs/"
 
