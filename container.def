@@ -1,0 +1,31 @@
+Bootstrap: docker
+From: python:{{PYTHON_VERSION}}
+Stage: spython-base
+
+%arguments
+    PYTHON_VERSION=3.12
+
+%labels
+    author Mark Piper
+    author Allen Lee
+    git-repository https://github.com/comses-education/bmi-example-python-parameter-study
+
+
+%help
+This container bundles the software and system dependencies and computational model source code for the BMI Example
+Python Parameter Study
+
+%files
+	. /code
+
+%post
+    chmod -R a+rX /code
+    ln -s /srv/results /code/
+    pip install -e /code
+    cd /code
+    bmiheat-parameter-study setup study/study-config.yaml
+
+%runscript
+    echo "Running BMI Heat Parameter Study Example"
+    echo "Arguments: $*"
+    exec echo "$@"

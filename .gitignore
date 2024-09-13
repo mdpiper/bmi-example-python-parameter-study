@@ -1,3 +1,11 @@
+# custom ignores
+# backups and temporary files
+*~
+.DS_Store
+# generated singularity images
+*.sif
+
+# from https://github.com/github/gitignore/blob/main/Python.gitignore
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
